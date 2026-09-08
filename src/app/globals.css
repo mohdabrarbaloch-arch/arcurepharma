@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* ---------- Theme: Leaf Green (default) ---------- */
+:root,
+html[data-theme="green"] {
+  --color-teal-50: #f0fdf4;
+  --color-teal-100: #dcfce7;
+  --color-teal-200: #bbf7d0;
+  --color-teal-300: #86efac;
+  --color-teal-400: #4ade80;
+  --color-teal-500: #22c55e;
+  --color-teal-600: #16a34a;
+  --color-teal-700: #15803d;
+  --color-teal-800: #166534;
+  --color-teal-900: #14532d;
+
+  --color-green-50: #f0fdf4;
+  --color-green-100: #dcfce7;
+  --color-green-200: #bbf7d0;
+  --color-green-300: #86efac;
+  --color-green-400: #4ade80;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a;
+  --color-green-700: #15803d;
+  --color-green-800: #166534;
+  --color-green-900: #14532d;
+}
+
+/* ---------- Theme: Navy Blue ---------- */
+html[data-theme="navy"] {
+  --color-teal-50: #eef3f9;
+  --color-teal-100: #d9e3f2;
+  --color-teal-200: #b2c6e3;
+  --color-teal-300: #7f9fc9;
+  --color-teal-400: #4f78ae;
+  --color-teal-500: #2f5a94;
+  --color-teal-600: #1f407a;
+  --color-teal-700: #16315f;
+  --color-teal-800: #122647;
+  --color-teal-900: #0b1a31;
+
+  --color-green-50: #eef3f9;
+  --color-green-100: #d9e3f2;
+  --color-green-200: #b2c6e3;
+  --color-green-300: #7f9fc9;
+  --color-green-400: #4f78ae;
+  --color-green-500: #2f5a94;
+  --color-green-600: #1f407a;
+  --color-green-700: #16315f;
+  --color-green-800: #122647;
+  --color-green-900: #0b1a31;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+/* ---------- Custom cursor (glow + smooth trail) ---------- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-teal-400);
+  box-shadow: 0 0 12px var(--color-teal-400),
+    0 0 24px color-mix(in srgb, var(--color-teal-400) 60%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid color-mix(in srgb, var(--color-teal-400) 50%, transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+.cursor-ring.is-hovering {
+  width: 64px;
+  height: 64px;
+  border-color: var(--color-teal-600);
+  background: color-mix(in srgb, var(--color-teal-400) 8%, transparent);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  transform: translateX(-50px);
+}
+.reveal-right {
+  transform: translateX(50px);
+}
+.reveal-scale {
+  transform: scale(0.9);
+}
+
+/* ---------- Smooth theme switching ---------- */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease,
+    color 0.35s ease, box-shadow 0.35s ease, fill 0.2s ease !important;
+}
+
+/* ---------- Floating / ambient animations ---------- */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-teal-400) 40%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--color-white, #ffffff);
+  }
+}
+
+/* Hide default cursor only on fine-pointer devices when custom cursor is active */
+@media (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* ---------- Watermark ---------- */
+.watermark-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  white-space: nowrap;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: rgba(220, 38, 38, 0.10);
+  line-height: 3.4;
+  width: 250vw;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+.watermark-layer--2 {
+  top: calc(50% + 3.4em);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
