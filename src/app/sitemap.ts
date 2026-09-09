@@ -4,8 +4,19 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://arcurepharma.com";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const productRows = await db.select().from(products);
+  let productRows: {
+    id: string;
+    createdAt: Date | null;
+  }[] = [];
+
+  try {
+    productRows = await db.select().from(products);
+  } catch {
+    productRows = [];
+  }
 
   const now = new Date();
 
