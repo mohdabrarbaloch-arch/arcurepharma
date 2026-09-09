@@ -2,5 +2,16 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema";
 
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql, { schema });
+export const isDbConfigured = Boolean(
+  process.env.DATABASE_URL && process.env.DATABASE_URL.trim().length > 0
+);
+
+const sql = isDbConfigured
+  ? neon(process.env.DATABASE_URL!)
+  : ((..._args: unknown[]) => {
+      throw new Error(
+        "DATABASE_URL is not configured. Add it to .env to enable database features."
+      );
+    });
+
+export const db = drizzle(sql as any, { schema });

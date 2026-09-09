@@ -21,9 +21,13 @@ export default function AdminProductsPage() {
 
   const fetchProducts = () => {
     fetch("/api/products")
-      .then((r) => r.json())
+      .then((r) => r.json().catch(() => ({ error: "empty" })))
       .then((data) => {
-        setProducts(data);
+        setProducts(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setProducts([]);
         setLoading(false);
       });
   };

@@ -12,6 +12,27 @@ interface Slide {
   subtitle: string;
 }
 
+const FALLBACK_SLIDES: Slide[] = [
+  {
+    id: "fallback-1",
+    imageUrl: "/jenpharm/hero-desktop.jpg",
+    title: "Your Health, Our Priority",
+    subtitle: "Trusted medicated products delivered to your doorstep with care",
+  },
+  {
+    id: "fallback-2",
+    imageUrl: "/jenpharm/quiz-banner.jpg",
+    title: "Quality You Can Trust",
+    subtitle: "Dermatologically approved skincare & haircare solutions",
+  },
+  {
+    id: "fallback-3",
+    imageUrl: "/jenpharm/newsletter.jpg",
+    title: "Fast & Reliable Delivery",
+    subtitle: "Essential medications delivered across Pakistan",
+  },
+];
+
 export default function HeroSlider() {
   const [slides, setSlides] = useState<Slide[]>([]);
   const [current, setCurrent] = useState(0);
@@ -24,13 +45,17 @@ export default function HeroSlider() {
       fetch("/api/settings").then((r) => r.json()),
     ])
       .then(([slidesData, settingsData]) => {
-        setSlides(Array.isArray(slidesData) ? slidesData : []);
+        const apiSlides = Array.isArray(slidesData) ? slidesData : [];
+        setSlides(apiSlides.length > 0 ? apiSlides : FALLBACK_SLIDES);
         if (settingsData && settingsData.slider_duration) {
           setDuration(Number(settingsData.slider_duration) * 1000);
         }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setSlides(FALLBACK_SLIDES);
+        setLoading(false);
+      });
   }, []);
 
   const next = useCallback(() => {
@@ -52,113 +77,174 @@ export default function HeroSlider() {
   if (loading) {
     return (
       <section className="relative h-[60vh] lg:h-[80vh] bg-teal-600 flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin" />
-      </section>
-    );
-  }
-
-  if (slides.length === 0) {
-    return (
-      <section className="relative h-[60vh] lg:h-[80vh] bg-teal-600 flex items-center justify-center">
-        <div className="text-center text-white px-4">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-4">
-            Your Health, Our Priority
-          </h2>
-          <p className="text-lg lg:text-xl opacity-90">
-            Trusted pharmacy products delivered to your doorstep
-          </p>
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
+          <p className="text-white/70 mt-4 text-sm">Loading...</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="relative h-[60vh] lg:h-[80vh] overflow-hidden bg-gray-900">
+    <section className="relative h-[65vh] lg:h-[85vh] overflow-hidden bg-gray-900">
       <div className="relative w-full h-full">
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              i === current ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              i === current ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
             <Image
               src={slide.imageUrl}
-              alt={slide.title || "Slide"}
+              alt={slide.title || "Arcure Pharma"}
               fill
               sizes="100vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-[8000ms] ease-out"
+              style={{
+                transform: i === current ? "scale(1.05)" : "scale(1)",
+              }}
               priority={i === 0}
+              quality={85}
             />
-            {(slide.title || slide.subtitle) && (
-              <div className="absolute inset-0 flex items-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-xl">
-                    {slide.title && (
-                      <h2
-                        key={`title-${i}-${current}`}
-                        className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 animate-fade-in drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]"
-                      >
-                        {slide.title}
-                      </h2>
-                    )}
-                    {slide.subtitle && (
-                      <p
-                        key={`sub-${i}-${current}`}
-                        className="text-lg lg:text-xl text-white animate-fade-in drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]"
-                        style={{ animationDelay: "0.15s" }}
-                      >
-                        {slide.subtitle}
-                      </p>
-                    )}
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 hero-gradient-overlay" />
+
+            {/* Content */}
+            <div className="absolute inset-0 flex items-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="max-w-2xl">
+                  {/* Badge */}
+                  <div
+                    key={`badge-${i}-${current}`}
+                    className={`inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm rounded-full border border-white/20 mb-6 ${
+                      i === current ? "animate-fade-in-up" : "opacity-0"
+                    }`}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-white/90 text-sm font-medium">
+                      Pakistan&apos;s Trusted Pharmacy
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  {slide.title && (
+                    <h2
+                      key={`title-${i}-${current}`}
+                      className={`text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 hero-text-shadow ${
+                        i === current ? "animate-fade-in-up" : "opacity-0"
+                      }`}
+                      style={{ animationDelay: "0.1s" }}
+                    >
+                      {slide.title}
+                    </h2>
+                  )}
+
+                  {/* Subtitle */}
+                  {slide.subtitle && (
+                    <p
+                      key={`sub-${i}-${current}`}
+                      className={`text-lg lg:text-xl text-white/85 leading-relaxed mb-8 max-w-lg ${
+                        i === current ? "animate-fade-in-up" : "opacity-0"
+                      }`}
+                      style={{ animationDelay: "0.25s" }}
+                    >
+                      {slide.subtitle}
+                    </p>
+                  )}
+
+                  {/* CTA Buttons */}
+                  <div
+                    key={`cta-${i}-${current}`}
+                    className={`flex flex-wrap gap-4 ${
+                      i === current ? "animate-fade-in-up" : "opacity-0"
+                    }`}
+                    style={{ animationDelay: "0.4s" }}
+                  >
                     <Link
                       href="/#products"
-                      className="inline-flex items-center gap-2 mt-8 px-7 py-3.5 bg-teal-600 text-white text-sm font-semibold rounded-full shadow-lg shadow-teal-500/40 hover:shadow-teal-400/60 hover:scale-105 transition-all animate-fade-in"
-                      style={{ animationDelay: "0.3s" }}
+                      className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-teal-700 text-sm font-bold rounded-full shadow-2xl shadow-black/20 hover:shadow-lg hover:scale-105 transition-all duration-300"
                     >
                       Shop Now
                       <ArrowRight className="w-4 h-4" />
                     </Link>
+                    <Link
+                      href="/#about"
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+
+                  {/* Trust badges */}
+                  <div
+                    key={`trust-${i}-${current}`}
+                    className={`flex items-center gap-6 mt-10 ${
+                      i === current ? "animate-fade-in-up" : "opacity-0"
+                    }`}
+                    style={{ animationDelay: "0.55s" }}
+                  >
+                    {[
+                      { label: "100% Genuine", icon: "✓" },
+                      { label: "Fast Delivery", icon: "🚚" },
+                      { label: "Expert Approved", icon: "★" },
+                    ].map((badge) => (
+                      <div
+                        key={badge.label}
+                        className="flex items-center gap-2 text-white/70"
+                      >
+                        <span className="text-sm">{badge.icon}</span>
+                        <span className="text-xs font-medium hidden sm:inline">
+                          {badge.label}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         ))}
 
-        {/* scroll indicator */}
-        <div className="absolute bottom-6 right-8 hidden lg:flex flex-col items-center gap-2 text-white/70 animate-bounce">
-          <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-          <ChevronDown className="w-5 h-5" />
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 right-8 hidden lg:flex flex-col items-center gap-2 text-white/50 animate-bounce z-20">
+          <span className="text-[10px] uppercase tracking-[0.2em] font-medium">
+            Scroll
+          </span>
+          <ChevronDown className="w-4 h-4" />
         </div>
       </div>
 
+      {/* Navigation arrows */}
       {slides.length > 1 && (
         <>
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm hover:bg-white/40 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm hover:bg-white/40 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20"
             aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+
+          {/* Dot indicators */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-500 ${
                   i === current
-                    ? "w-8 bg-teal-400 shadow-[0_0_10px_color-mix(in_srgb,var(--color-teal-400)_80%,transparent)]"
-                    : "w-2 bg-white/50 hover:bg-white/70"
+                    ? "w-10 bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]"
+                    : "w-2 bg-white/40 hover:bg-white/60"
                 }`}
               />
             ))}

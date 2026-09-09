@@ -1,22 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useSyncExternalStore, useState } from "react";
 import { Lock, LogIn } from "lucide-react";
 
 const STORAGE_KEY = "arcure_admin_session";
+
+const listeners = new Set<() => void>();
+
+const notify = () => {
+  listeners.forEach((l) => l());
+};
+
+const subscribe = (onStoreChange: () => void) => {
+  listeners.add(onStoreChange);
+  window.addEventListener("storage", onStoreChange);
+  return () => {
+    listeners.delete(onStoreChange);
+    window.removeEventListener("storage", onStoreChange);
+  };
+};
+
+const getSession = () => {
+  try {
+    return sessionStorage.getItem(STORAGE_KEY) === "yes";
+  } catch {
+    return false;
+  }
+};
+
+const getServerSession = () => false;
 
 export default function AdminGate({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [authed, setAuthed] = useState(() => {
-    try {
-      return sessionStorage.getItem(STORAGE_KEY) === "yes";
-    } catch {
-      return false;
-    }
-  });
+  const authed = useSyncExternalStore(subscribe, getSession, getServerSession);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,7 +56,7 @@ export default function AdminGate({
         } catch {
           // ignore storage errors
         }
-        setAuthed(true);
+        notify();
       } else {
         setError("Wrong password. Try again.");
       }

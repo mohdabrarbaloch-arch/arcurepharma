@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { imagekit } from "@/lib/imagekit";
+import { getImagekit, isImageKitConfigured } from "@/lib/imagekit";
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,12 +11,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    if (!isImageKitConfigured) {
+      return NextResponse.json(
+        { error: "ImageKit is not configured. Add IMAGEKIT keys to .env." },
+        { status: 500 }
+      );
+    }
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = buffer.toString("base64");
     const dataUrl = `data:${file.type};base64,${base64}`;
 
-    const result = await imagekit.upload({
+    const result = await getImagekit().upload({
       file: dataUrl,
       fileName: file.name,
       folder,

@@ -1,15 +1,66 @@
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/storefront/CustomCursor";
 import WhatsAppWidget from "@/components/storefront/WhatsAppWidget";
 import ChatBot from "@/components/storefront/ChatBot";
+import ThemeInit from "@/components/storefront/ThemeInit";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
+
 export const metadata: Metadata = {
-  title: "Arcure Pharma - Your Trusted Online Pharmacy",
+  title: {
+    default: "Arcure Pharma - Your Trusted Online Pharmacy in Pakistan",
+    template: "%s | Arcure Pharma",
+  },
   description:
-    "Quality Medicated products delivered to your doorstep with care and reliability.",
+    "Arcure Pharma provides dermatologically approved medicated products. Buy skincare, haircare & health products with fast doorstep delivery across Pakistan. Quality you can trust.",
+  keywords: [
+    "pharmacy",
+    "online pharmacy Pakistan",
+    "medicated products",
+    "skincare",
+    "haircare",
+    "health products",
+    "Arcure Pharma",
+    "Karachi pharmacy",
+    "doorstep delivery",
+  ],
+  authors: [{ name: "Arcure Pharma" }],
+  creator: "Arcure Pharma",
+  metadataBase: new URL("https://arcurepharma.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_PK",
+    url: "https://arcurepharma.com",
+    siteName: "Arcure Pharma",
+    title: "Arcure Pharma - Your Trusted Online Pharmacy in Pakistan",
+    description:
+      "Quality medicated products delivered to your doorstep. Skincare, haircare & health essentials with fast delivery across Pakistan.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arcure Pharma - Your Trusted Online Pharmacy",
+    description:
+      "Quality medicated products delivered to your doorstep with care and reliability.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -19,14 +70,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("arcure_theme");document.documentElement.setAttribute("data-theme",t==="navy"?"navy":"green");}catch(e){}`,
-          }}
-        />
-      </head>
-      <body className="antialiased">
+      <body className={`${montserrat.variable} antialiased`}>
+        <ThemeInit />
         <ThemeProvider>
           <CustomCursor />
           <WhatsAppWidget />
@@ -43,18 +88,6 @@ export default function RootLayout({
             }}
           />
           {children}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-0 z-[9998] overflow-hidden select-none"
-            style={{ mixBlendMode: "multiply" }}
-          >
-            <div className="watermark-layer">
-              {"ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • "}
-            </div>
-            <div className="watermark-layer watermark-layer--2">
-              {"ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • ONLY FOR TEST USE • "}
-            </div>
-          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -126,6 +126,38 @@ async function main() {
       text: "Their bulk ordering process is smooth and paperwork is always complete A dependable partner for institutional supplies.",
       order: 10,
     },
+    {
+      id: "00000000-0000-4000-8000-00000000000b",
+      name: "Huma",
+      role: "Verified Customer - 6 weeks",
+      rating: 5,
+      text: "MandelAC Serum helped calm my active acne significantly. Breakouts reduced, inflammation went down, and my skin feels clearer and healthier within just a few weeks!",
+      order: 11,
+    },
+    {
+      id: "00000000-0000-4000-8000-00000000000c",
+      name: "Zoha",
+      role: "Verified Customer - 4 weeks",
+      rating: 5,
+      text: "Maxdif Moisturizer keeps my skin so hydrated all day. Tone looks brighter, more even, and my dull patches have really improved with regular use!",
+      order: 12,
+    },
+    {
+      id: "00000000-0000-4000-8000-00000000000d",
+      name: "Mubeen",
+      role: "Verified Customer - 3 months",
+      rating: 5,
+      text: "If used as advised, this actually works! I've been using it for 3 months and noticed an inch of multiple hair growth where my hair was receding. My hair is much fuller now!",
+      order: 13,
+    },
+    {
+      id: "00000000-0000-4000-8000-00000000000e",
+      name: "Shahid",
+      role: "Verified Customer - 4 weeks",
+      rating: 5,
+      text: "Since adding Maxdif Cream to my routine, my hyperpigmentation has noticeably reduced. Skin feels smoother, brighter, and so much more even toned now!",
+      order: 14,
+    },
   ];
 
   for (const review of defaultReviews) {

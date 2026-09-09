@@ -6,8 +6,12 @@ import HeroSlider from "@/components/storefront/HeroSlider";
 import ProductCard from "@/components/storefront/ProductCard";
 import Testimonials from "@/components/storefront/Testimonials";
 import VisionPanel from "@/components/storefront/VisionPanel";
+import ResultsTrust from "@/components/storefront/ResultsTrust";
+import DealsStrip from "@/components/storefront/DealsStrip";
+import PressLogos from "@/components/storefront/PressLogos";
 import Footer from "@/components/storefront/Footer";
 import { useReveal } from "@/lib/useReveal";
+import { Sparkles } from "lucide-react";
 
 interface Product {
   id: string;
@@ -21,6 +25,7 @@ interface Product {
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   useEffect(() => {
     fetch("/api/products")
@@ -34,49 +39,75 @@ export default function HomePage() {
 
   const { ref: productsHeaderRef, visible: productsHeaderVisible } = useReveal();
 
+  const categories = ["All", ...new Set(products.map((p) => p.category).filter(Boolean))];
+  const filtered =
+    selectedCategory === "All"
+      ? products
+      : products.filter((p) => p.category === selectedCategory);
+
   return (
     <main className="min-h-screen">
       <Navbar />
       <HeroSlider />
 
-      <section
-        id="products"
-        className="py-20 lg:py-28 bg-gray-50"
-      >
+      {/* Products Section */}
+      <section id="products" className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             ref={productsHeaderRef}
-            className={`text-center mb-16 reveal ${productsHeaderVisible ? "is-visible" : ""}`}
+            className={`text-center mb-12 reveal ${productsHeaderVisible ? "is-visible" : ""}`}
           >
-            <span className="inline-block px-4 py-1.5 bg-teal-50 text-teal-700 text-sm font-medium rounded-full mb-4 animate-pulse-glow">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-teal-50 text-teal-700 text-sm font-semibold rounded-full mb-4">
+              <Sparkles className="w-4 h-4" />
               Our Products
             </span>
-            <h2 className="text-3xl lg:text-5xl font-bold text-teal-800">
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
               Quality Health Products
             </h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-lg">
               Browse our wide range of trusted medicated products
             </p>
-            <div className="mt-6 flex items-center justify-center gap-2">
-              <span className="h-1 w-16 rounded-full bg-teal-500" />
-              <span className="w-2 h-2 rounded-full bg-teal-500" />
-              <span className="h-1 w-16 rounded-full bg-teal-500" />
-            </div>
+            <div className="section-divider mt-6" />
           </div>
+
+          {/* Category filters */}
+          {categories.length > 1 && (
+            <div className="flex flex-wrap justify-center gap-2 mb-12">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                    selectedCategory === cat
+                      ? "bg-teal-600 text-white shadow-lg shadow-teal-600/25"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
 
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="w-10 h-10 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin" />
+              <div className="text-center">
+                <div className="w-12 h-12 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mx-auto" />
+                <p className="text-gray-400 mt-4 text-sm">Loading products...</p>
+              </div>
             </div>
-          ) : products.length === 0 ? (
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20">
+              <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-8 h-8 text-teal-400" />
+              </div>
               <p className="text-gray-400 text-lg">
                 Products coming soon. Check back later!
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-              {products.map((product) => (
+              {filtered.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -84,8 +115,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ResultsTrust />
       <VisionPanel />
+      <DealsStrip />
       <Testimonials />
+      <PressLogos />
       <Footer />
     </main>
   );

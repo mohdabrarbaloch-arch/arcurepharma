@@ -18,6 +18,90 @@ interface Review {
   order: number;
 }
 
+const FALLBACK_REVIEWS: Review[] = [
+  {
+    id: "fallback-1",
+    name: "Huma",
+    role: "Verified Customer - 6 weeks",
+    rating: 5,
+    text: "MandelAC Serum helped calm my active acne significantly. Breakouts reduced, inflammation went down, and my skin feels clearer and healthier within just a few weeks!",
+    imageUrl: "/jenpharm/result-huma.jpg",
+    order: 1,
+  },
+  {
+    id: "fallback-2",
+    name: "Zoha",
+    role: "Verified Customer - 4 weeks",
+    rating: 5,
+    text: "Maxdif Moisturizer keeps my skin so hydrated all day. Tone looks brighter, more even, and my dull patches have really improved with regular use!",
+    imageUrl: "/jenpharm/result-zoha.jpg",
+    order: 2,
+  },
+  {
+    id: "fallback-3",
+    name: "Mubeen",
+    role: "Verified Customer - 3 months",
+    rating: 5,
+    text: "If used as advised, this actually works! I've been using it for 3 months and noticed an inch of multiple hair growth where my hair was receding. My hair is much fuller now!",
+    imageUrl: "/jenpharm/result-mubeen.jpg",
+    order: 3,
+  },
+  {
+    id: "fallback-4",
+    name: "Shahid",
+    role: "Verified Customer - 4 weeks",
+    rating: 5,
+    text: "Since adding Maxdif Cream to my routine, my hyperpigmentation has noticeably reduced. Skin feels smoother, brighter, and so much more even toned now!",
+    imageUrl: "/jenpharm/result-shahid.jpg",
+    order: 4,
+  },
+  {
+    id: "fallback-5",
+    name: "Dr. Fatima Khan",
+    role: "Hospital Administrator",
+    rating: 5,
+    text: "Arcure Pharma has been our trusted supplier for over 3 years. Their quality and reliability are unmatched.",
+    imageUrl: null,
+    order: 5,
+  },
+  {
+    id: "fallback-6",
+    name: "Ahmed Raza",
+    role: "Loyal Customer",
+    rating: 5,
+    text: "Fast delivery, genuine products and excellent customer service. I would not shop anywhere else.",
+    imageUrl: null,
+    order: 6,
+  },
+  {
+    id: "fallback-7",
+    name: "Sara Malik",
+    role: "Pharmacy Owner",
+    rating: 4,
+    text: "Professional team with a wide range of products. Their prices are competitive and delivery is always on time.",
+    imageUrl: null,
+    order: 7,
+  },
+  {
+    id: "fallback-8",
+    name: "Ayesha Siddiqui",
+    role: "Regular Customer",
+    rating: 5,
+    text: "Their medicines are always genuine with proper expiry dates. The WhatsApp ordering is super convenient.",
+    imageUrl: null,
+    order: 8,
+  },
+  {
+    id: "fallback-9",
+    name: "Kamran Ali",
+    role: "Distributor Partner",
+    rating: 5,
+    text: "Working with Arcure Pharma for two years now. Honest pricing, consistent supply and a team that actually listens.",
+    imageUrl: null,
+    order: 9,
+  },
+];
+
 function Stars({ rating, size = "w-4 h-4" }: { rating: number; size?: string }) {
   return (
     <div className="flex gap-0.5">
@@ -58,10 +142,14 @@ export default function ReviewsPage() {
     fetch("/api/reviews")
       .then((r) => r.json())
       .then((data) => {
-        setReviews(Array.isArray(data) ? data : []);
+        const list = Array.isArray(data) ? data : [];
+        setReviews(list.length > 0 ? list : FALLBACK_REVIEWS);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setReviews(FALLBACK_REVIEWS);
+        setLoading(false);
+      });
   }, []);
 
   const photoCount = reviews.filter((r) => r.imageUrl).length;

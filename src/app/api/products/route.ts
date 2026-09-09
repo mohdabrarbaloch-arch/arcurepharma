@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { db, isDbConfigured } from "@/db";
 import { products } from "@/db/schema";
 
 export async function GET() {
+  if (!isDbConfigured) {
+    return NextResponse.json([]);
+  }
   try {
     const allProducts = await db.select().from(products);
     return NextResponse.json(allProducts);
