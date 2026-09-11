@@ -17,10 +17,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<NavUser | null>(null);
   const pathname = usePathname();
   const router = useRouter();
   const totalItems = useCartStore((s) => s.getTotalItems());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -75,16 +80,16 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-[72px]">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-600/30 group-hover:scale-110 transition-transform duration-300">
-                <Pill className="w-5 h-5 text-white" />
+            <Link href="/" className="flex items-center gap-3 shrink-0 group">
+              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-600/30 group-hover:scale-110 transition-transform duration-300">
+                <Pill className="w-6 h-6 text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-extrabold text-gray-900 leading-tight tracking-tight">
-                  Arcure
+              <div className="hidden sm:block">
+                <h1 className="text-2xl font-extrabold text-gray-900 leading-none tracking-tight">
+                  Arcure<span className="text-teal-700">Pharma</span>
                 </h1>
-                <p className="text-[9px] text-teal-600 -mt-1 tracking-[0.25em] uppercase font-semibold">
-                  Pharma
+                <p className="text-[10px] text-teal-600 -mt-0.5 tracking-[0.3em] uppercase font-bold">
+                  Quality You Trust
                 </p>
               </div>
             </Link>
@@ -177,7 +182,7 @@ export default function Navbar() {
                 className="relative p-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors border border-gray-100"
               >
                 <ShoppingCart className="w-5 h-5 text-gray-700" />
-                {totalItems > 0 && (
+                {mounted && totalItems > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-teal-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                     {totalItems}
                   </span>

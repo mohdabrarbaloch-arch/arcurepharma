@@ -1,5 +1,5 @@
 import { db } from "../src/db";
-import { settings, categories, reviews } from "../src/db/schema";
+import { settings, categories, reviews, products } from "../src/db/schema";
 
 async function main() {
   console.log("Seeding default settings...");
@@ -164,6 +164,76 @@ async function main() {
     await db.insert(reviews).values(review).onConflictDoNothing();
   }
   console.log(`Seeded ${defaultReviews.length} default reviews`);
+
+  console.log("Seeding default products...");
+
+  const defaultProducts = [
+    {
+      id: "10000000-0000-4000-8000-000000000001",
+      title: "ARCUDERM CS Serum",
+      price: "2999",
+      description: "Restorative care for glowing, healthy skin. Salicylic Acid + Vitamin C + Hyaluronic Acid - Dermatologist formulated.",
+      category: "Skincare",
+      imageUrl: "/arcure/arcuderm-serum.png",
+      images: ["/arcure/Arcu_Gleam_Seerom.jpeg", "/arcure/arcuderm-serum.png"],
+      benefits: ["Protects & Strengthens", "Brightens & Revives", "Hydrates & Repairs", "Clearer & Smoother"],
+      ingredients: "Salicylic Acid, Vitamin C, Hyaluronic Acid",
+      howToUse: "Apply 2-3 drops on clean face. Use morning and evening for best results.",
+      sku: "ACS-001",
+      isPrescriptionRequired: 0,
+      isActive: 1,
+    },
+    {
+      id: "10000000-0000-4000-8000-000000000002",
+      title: "ARCU GLEAM Face Wash",
+      price: "1499",
+      description: "Deep clean, oil control, hydration boost. For clear, fresh & healthy skin. Suitable for acne-prone skin.",
+      category: "Skincare",
+      imageUrl: "/arcure/arcu-gleam.jpeg",
+      images: ["/arcure/arcu-gleam.jpeg", "/arcure/Arcu_Gleam_Seerom2.jpeg"],
+      benefits: ["Deep Cleanses", "Oil Control", "Hydration Boost", "Natural Glow"],
+      ingredients: "Salicylic Acid, Niacinamide, Hyaluronic Acid",
+      howToUse: "Apply small amount to wet face. Massage gently and rinse thoroughly. Use twice daily.",
+      sku: "AGF-003",
+      isPrescriptionRequired: 0,
+      isActive: 1,
+    },
+    {
+      id: "10000000-0000-4000-8000-000000000003",
+      title: "ARCU-CAL K2",
+      price: "1999",
+      description: "Complete Bone & Joint Support for an active, energetic life. Calcium + Vitamin D3 + Magnesium + Zinc.",
+      category: "Supplements",
+      imageUrl: "/arcure/arcu-cal-k2.png",
+      images: ["/arcure/arcu-cal-k2.png", "/arcure/Arcu_Gleam_Seerom3.jpeg"],
+      benefits: ["Strong Bones", "Better Absorption", "Joint Support", "Immunity & Energy"],
+      ingredients: "Calcium, Vitamin D3, Magnesium, Zinc",
+      howToUse: "Take 1 tablet daily with meal or as directed by healthcare professional.",
+      sku: "ACK-002",
+      isPrescriptionRequired: 0,
+      isActive: 1,
+    },
+    {
+      id: "10000000-0000-4000-8000-000000000004",
+      title: "Mida-D Vitamin D3",
+      price: "1799",
+      description: "High Strength Vitamin D3 200,000 IU for daily wellness. Supports strong bones, immunity & overall well-being.",
+      category: "Vitamins",
+      imageUrl: "/arcure/mida-d.png",
+      images: ["/arcure/mida-d.png"],
+      benefits: ["Vitamin D3 200,000 IU", "Immune Support", "Omega Fish Oil", "More Energy"],
+      ingredients: "Vitamin D3 200,000 IU, Omega Fish Oil",
+      howToUse: "Take 1 softgel capsule as directed by your healthcare provider.",
+      sku: "MDV-004",
+      isPrescriptionRequired: 0,
+      isActive: 1,
+    },
+  ];
+
+  for (const product of defaultProducts) {
+    await db.insert(products).values(product).onConflictDoNothing();
+  }
+  console.log(`Seeded ${defaultProducts.length} default products`);
 
   console.log("Done. Set DATABASE_URL in .env.local first.");
   process.exit(0);

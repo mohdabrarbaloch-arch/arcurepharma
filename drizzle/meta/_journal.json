@@ -50,6 +50,20 @@
       "when": 1788865400169,
       "tag": "0006_fantastic_sauron",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789127700345,
+      "tag": "0007_strange_stature",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789145016391,
+      "tag": "0008_third_apocalypse",
+      "breakpoints": true
     }
   ]
 }

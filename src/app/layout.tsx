@@ -5,6 +5,10 @@ import { Toaster } from "react-hot-toast";
 import CustomCursor from "@/components/storefront/CustomCursor";
 import WhatsAppWidget from "@/components/storefront/WhatsAppWidget";
 import ChatBot from "@/components/storefront/ChatBot";
+import ComparisonDrawer from "@/components/storefront/ComparisonDrawer";
+import NewsletterPopup from "@/components/storefront/NewsletterPopup";
+import MobileBottomNav from "@/components/storefront/MobileBottomNav";
+import LiveViewers from "@/components/storefront/LiveViewers";
 import ThemeInit from "@/components/storefront/ThemeInit";
 import { ThemeProvider } from "@/lib/ThemeProvider";
 
@@ -76,6 +80,10 @@ export default function RootLayout({
           <CustomCursor />
           <WhatsAppWidget />
           <ChatBot />
+          <ComparisonDrawer />
+          <LiveViewers />
+          <NewsletterPopup />
+          <MobileBottomNav />
           <Toaster
             position="top-center"
             toastOptions={{

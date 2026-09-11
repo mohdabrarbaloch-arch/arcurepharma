@@ -15,21 +15,21 @@ interface Slide {
 const FALLBACK_SLIDES: Slide[] = [
   {
     id: "fallback-1",
-    imageUrl: "/jenpharm/hero-desktop.jpg",
-    title: "Your Health, Our Priority",
-    subtitle: "Trusted medicated products delivered to your doorstep with care",
+    imageUrl: "/arcure/Arcu_Gleam_Seerom.jpeg",
+    title: "Premium Skincare Solutions",
+    subtitle: "ARCUDERM CS Serum - Restorative care for glowing, healthy skin",
   },
   {
     id: "fallback-2",
-    imageUrl: "/jenpharm/quiz-banner.jpg",
-    title: "Quality You Can Trust",
-    subtitle: "Dermatologically approved skincare & haircare solutions",
+    imageUrl: "/arcure/Arcu_Gleam_Seerom2.jpeg",
+    title: "ARCU GLEAM Face Wash",
+    subtitle: "Deep cleanse, oil control, and hydration boost for clear, fresh skin",
   },
   {
     id: "fallback-3",
-    imageUrl: "/jenpharm/newsletter.jpg",
-    title: "Fast & Reliable Delivery",
-    subtitle: "Essential medications delivered across Pakistan",
+    imageUrl: "/arcure/Arcu_Gleam_Seerom3.jpeg",
+    title: "Complete Health & Wellness",
+    subtitle: "ARCU-CAL K2 + Mida-D - Strong bones, better immunity, better you",
   },
 ];
 
