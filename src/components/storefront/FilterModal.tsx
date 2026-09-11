@@ -4,6 +4,12 @@ import { X } from "lucide-react";
 import { useEffect } from "react";
 import FilterSidebar from "./FilterSidebar";
 
+interface ActiveFiltersType {
+  categories: string[];
+  benefits: string[];
+  sortBy: string;
+}
+
 interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -11,12 +17,8 @@ interface FilterModalProps {
     categories: string[];
     benefits: string[];
   };
-  activeFilters: {
-    categories: string[];
-    benefits: string[];
-    sortBy: string;
-  };
-  onFiltersChange: (filters: typeof activeFilters) => void;
+  activeFilters: ActiveFiltersType;
+  onFiltersChange: (filters: ActiveFiltersType) => void;
   onClearAll: () => void;
   productCount: number;
 }

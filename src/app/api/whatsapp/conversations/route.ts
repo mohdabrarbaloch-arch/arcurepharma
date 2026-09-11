@@ -9,15 +9,22 @@ export async function GET(request: Request) {
     const status = searchParams.get("status") || "Active";
     const limit = parseInt(searchParams.get("limit") || "50");
 
-    let query = db.select().from(chatHistory);
+    let conversations: any[] = [];
 
-    if (status !== "all") {
-      query = query.where(eq(chatHistory.status, status));
+    if (status === "all") {
+      conversations = await db
+        .select()
+        .from(chatHistory)
+        .orderBy(desc(chatHistory.updatedAt))
+        .limit(limit);
+    } else {
+      conversations = await db
+        .select()
+        .from(chatHistory)
+        .where(eq(chatHistory.status, status))
+        .orderBy(desc(chatHistory.updatedAt))
+        .limit(limit);
     }
-
-    const conversations = await query
-      .orderBy(desc(chatHistory.updatedAt))
-      .limit(limit);
 
     return NextResponse.json({
       success: true,
@@ -28,15 +35,16 @@ export async function GET(request: Request) {
         userName: conv.userName,
         userEmail: conv.userEmail,
         userPhone: conv.userPhone,
-        messageCount: conv.messages?.length || 0,
+        messageCount: (conv.messages as any[])?.length || 0,
         status: conv.status,
         conversationType: conv.conversationType,
         shiftedToWhatsApp: conv.shiftedToWhatsApp,
         createdAt: conv.createdAt,
         updatedAt: conv.updatedAt,
         lastMessage:
-          conv.messages && conv.messages.length > 0
-            ? conv.messages[conv.messages.length - 1].content
+          (conv.messages as any[]) && (conv.messages as any[]).length > 0
+            ? (conv.messages as any[])[(conv.messages as any[]).length - 1]
+                .content
             : "No messages",
       })),
     });
