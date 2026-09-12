@@ -80,15 +80,15 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-[72px]">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0 group">
-              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-700 rounded-xl flex items-center justify-center shadow-lg shadow-teal-600/30 group-hover:scale-110 transition-transform duration-300">
-                <Pill className="w-6 h-6 text-white" />
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-700 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-teal-600/30 group-hover:scale-110 transition-transform duration-300">
+                <Pill className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-2xl font-extrabold text-gray-900 leading-none tracking-tight">
+              <div className="hidden xs:flex flex-col sm:flex-row sm:gap-1">
+                <h1 className="text-lg sm:text-2xl font-extrabold text-gray-900 leading-none tracking-tight">
                   Arcure<span className="text-teal-700">Pharma</span>
                 </h1>
-                <p className="text-[10px] text-teal-600 -mt-0.5 tracking-[0.3em] uppercase font-bold">
+                <p className="hidden sm:block text-[10px] text-teal-600 tracking-[0.3em] uppercase font-bold">
                   Quality You Trust
                 </p>
               </div>
@@ -109,20 +109,20 @@ export default function Navbar() {
             </nav>
 
             {/* Right side */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
               {/* Theme toggle */}
               <button
                 onClick={toggleTheme}
                 title={theme === "green" ? "Switch to Navy Blue" : "Switch to Leaf Green"}
                 suppressHydrationWarning
-                className="flex items-center gap-1.5 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors border border-gray-100"
+                className="hidden sm:flex items-center gap-1.5 px-2 sm:px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors border border-gray-100 min-h-[44px]"
               >
                 {theme === "green" ? (
                   <Leaf className="w-4 h-4 text-teal-600" />
                 ) : (
                   <Anchor className="w-4 h-4 text-teal-600" />
                 )}
-                <span className="text-xs font-semibold text-gray-600 hidden sm:inline">
+                <span className="text-xs font-semibold text-gray-600 hidden lg:inline">
                   {theme === "green" ? "Green" : "Navy"}
                 </span>
               </button>
@@ -132,16 +132,19 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setUserOpen(!userOpen)}
-                    className="flex items-center gap-2 px-2.5 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors border border-gray-100"
+                    className="flex items-center gap-1.5 px-2 sm:px-2.5 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors border border-gray-100 min-h-[44px]"
                   >
-                    <div className="w-7 h-7 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
                       {userInitial}
                     </div>
+                    <span className="text-xs font-semibold text-gray-600 hidden sm:inline truncate max-w-[60px]">
+                      {user.name?.split(" ")[0] || "Account"}
+                    </span>
                   </button>
                   {userOpen && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 animate-fade-in">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="font-bold text-gray-800 text-sm truncate">
+                    <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-xl sm:rounded-2xl shadow-xl border border-gray-100 py-2 z-50 animate-fade-in">
+                      <div className="px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-100">
+                        <p className="font-bold text-gray-800 text-xs sm:text-sm truncate">
                           {user.name || "My Account"}
                         </p>
                         <p className="text-gray-400 text-xs truncate">
@@ -151,14 +154,14 @@ export default function Navbar() {
                       <Link
                         href="/account"
                         onClick={() => setUserOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                        className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
                       >
                         <Package className="w-4 h-4 text-teal-600" />
                         My Orders
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        className="w-full flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-red-600 hover:bg-red-50 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
                         Sign Out
@@ -169,21 +172,21 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/account"
-                  className="hidden sm:flex items-center gap-2 px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-teal-600/25 active:scale-95"
+                  className="hidden sm:flex items-center gap-1.5 px-2 sm:px-4 py-2 sm:py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold rounded-lg sm:rounded-xl transition-all hover:shadow-lg hover:shadow-teal-600/25 active:scale-95 min-h-[44px]"
                 >
                   <User className="w-4 h-4" />
-                  Sign In
+                  <span className="hidden md:inline">Sign In</span>
                 </Link>
               )}
 
               {/* Cart */}
               <Link
                 href="/checkout"
-                className="relative p-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors border border-gray-100"
+                className="relative p-2 sm:p-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors border border-gray-100 min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
-                <ShoppingCart className="w-5 h-5 text-gray-700" />
+                <ShoppingCart className="w-5 h-5 sm:w-5 h-5 text-gray-700" />
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-teal-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-teal-500 text-white text-[9px] sm:text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                     {totalItems}
                   </span>
                 )}
@@ -192,7 +195,7 @@ export default function Navbar() {
               {/* Mobile menu */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -202,13 +205,13 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="lg:hidden bg-white border-t shadow-xl">
-            <div className="px-4 py-4">
+          <div className="lg:hidden bg-white border-t shadow-xl animate-slide-down">
+            <div className="px-3 sm:px-4 py-3 sm:py-4 space-y-2">
               {!user && (
                 <Link
                   href="/account"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 mb-4 px-4 py-3 bg-teal-600 text-white rounded-xl font-semibold"
+                  className="flex items-center justify-center gap-2 mb-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base transition-colors min-h-[44px]"
                 >
                   <User className="w-5 h-5" />
                   Sign In / Register
@@ -219,7 +222,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-gray-600 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-medium transition-colors"
+                  className="block px-3 sm:px-4 py-2.5 sm:py-3 text-gray-600 hover:bg-teal-50 hover:text-teal-700 rounded-lg transition-colors font-medium text-sm min-h-[44px] flex items-center"
                 >
                   {link.label}
                 </Link>
@@ -229,13 +232,13 @@ export default function Navbar() {
                   <Link
                     href="/account"
                     onClick={() => setIsOpen(false)}
-                    className="block px-4 py-3 text-gray-600 hover:bg-teal-50 hover:text-teal-700 rounded-xl font-medium transition-colors"
+                    className="block px-3 sm:px-4 py-2.5 sm:py-3 text-gray-600 hover:bg-teal-50 hover:text-teal-700 rounded-lg font-medium text-sm min-h-[44px] flex items-center transition-colors"
                   >
                     My Orders
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl font-medium transition-colors"
+                    className="w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 text-red-600 hover:bg-red-50 rounded-lg font-medium text-sm min-h-[44px] flex items-center transition-colors"
                   >
                     Sign Out
                   </button>

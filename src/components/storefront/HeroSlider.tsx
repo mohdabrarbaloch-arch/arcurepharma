@@ -86,7 +86,7 @@ export default function HeroSlider() {
   }
 
   return (
-    <section className="relative h-[65vh] lg:h-[85vh] overflow-hidden bg-gray-900">
+    <section className="relative h-64 sm:h-80 md:h-96 lg:h-[85vh] overflow-hidden bg-gray-900">
       <div className="relative w-full h-full">
         {slides.map((slide, i) => (
           <div
@@ -113,17 +113,17 @@ export default function HeroSlider() {
 
             {/* Content */}
             <div className="absolute inset-0 flex items-center">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full">
                 <div className="max-w-2xl">
                   {/* Badge */}
                   <div
                     key={`badge-${i}-${current}`}
-                    className={`inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm rounded-full border border-white/20 mb-6 ${
+                    className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-white/15 backdrop-blur-sm rounded-full border border-white/20 mb-3 sm:mb-6 text-[11px] sm:text-sm ${
                       i === current ? "animate-fade-in-up" : "opacity-0"
                     }`}
                   >
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-white/90 text-sm font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-white/90 font-medium">
                       Pakistan&apos;s Trusted Pharmacy
                     </span>
                   </div>
@@ -132,7 +132,7 @@ export default function HeroSlider() {
                   {slide.title && (
                     <h2
                       key={`title-${i}-${current}`}
-                      className={`text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-6 hero-text-shadow ${
+                      className={`text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-2 sm:mb-6 hero-text-shadow ${
                         i === current ? "animate-fade-in-up" : "opacity-0"
                       }`}
                       style={{ animationDelay: "0.1s" }}
@@ -145,7 +145,7 @@ export default function HeroSlider() {
                   {slide.subtitle && (
                     <p
                       key={`sub-${i}-${current}`}
-                      className={`text-lg lg:text-xl text-white/85 leading-relaxed mb-8 max-w-lg ${
+                      className={`text-xs sm:text-sm md:text-lg lg:text-xl text-white/85 leading-snug sm:leading-relaxed mb-3 sm:mb-8 max-w-lg line-clamp-2 sm:line-clamp-none ${
                         i === current ? "animate-fade-in-up" : "opacity-0"
                       }`}
                       style={{ animationDelay: "0.25s" }}
@@ -157,21 +157,21 @@ export default function HeroSlider() {
                   {/* CTA Buttons */}
                   <div
                     key={`cta-${i}-${current}`}
-                    className={`flex flex-wrap gap-4 ${
+                    className={`flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 ${
                       i === current ? "animate-fade-in-up" : "opacity-0"
                     }`}
                     style={{ animationDelay: "0.4s" }}
                   >
                     <Link
                       href="/#products"
-                      className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-teal-700 text-sm font-bold rounded-full shadow-2xl shadow-black/20 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                      className="inline-flex items-center justify-center gap-1.5 sm:gap-2.5 px-4 sm:px-8 py-2.5 sm:py-4 bg-white text-teal-700 text-xs sm:text-sm font-bold rounded-full shadow-2xl shadow-black/20 hover:shadow-lg hover:scale-105 transition-all duration-300 min-h-[44px]"
                     >
                       Shop Now
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </Link>
                     <Link
                       href="/#about"
-                      className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300"
+                      className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-8 py-2.5 sm:py-4 bg-white/10 backdrop-blur-sm text-white text-xs sm:text-sm font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 min-h-[44px]"
                     >
                       Learn More
                     </Link>
@@ -180,7 +180,7 @@ export default function HeroSlider() {
                   {/* Trust badges */}
                   <div
                     key={`trust-${i}-${current}`}
-                    className={`flex items-center gap-6 mt-10 ${
+                    className={`hidden sm:flex items-center gap-4 md:gap-6 mt-6 md:mt-10 ${
                       i === current ? "animate-fade-in-up" : "opacity-0"
                     }`}
                     style={{ animationDelay: "0.55s" }}
@@ -195,7 +195,7 @@ export default function HeroSlider() {
                         className="flex items-center gap-2 text-white/70"
                       >
                         <span className="text-sm">{badge.icon}</span>
-                        <span className="text-xs font-medium hidden sm:inline">
+                        <span className="text-xs font-medium">
                           {badge.label}
                         </span>
                       </div>
@@ -208,7 +208,7 @@ export default function HeroSlider() {
         ))}
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 right-8 hidden lg:flex flex-col items-center gap-2 text-white/50 animate-bounce z-20">
+        <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 hidden lg:flex flex-col items-center gap-2 text-white/50 animate-bounce z-20">
           <span className="text-[10px] uppercase tracking-[0.2em] font-medium">
             Scroll
           </span>
@@ -221,30 +221,30 @@ export default function HeroSlider() {
         <>
           <button
             onClick={prev}
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20"
+            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20 min-h-[44px] min-w-[44px] sm:min-h-[56px] sm:min-w-[56px]"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
           <button
             onClick={next}
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20"
+            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-sm hover:bg-white/25 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 border border-white/20 min-h-[44px] min-w-[44px] sm:min-h-[56px] sm:min-w-[56px]"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6 text-white" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
 
           {/* Dot indicators */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+          <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-500 ${
+                className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ${
                   i === current
-                    ? "w-10 bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]"
-                    : "w-2 bg-white/40 hover:bg-white/60"
+                    ? "w-6 sm:w-10 bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]"
+                    : "w-1.5 sm:w-2 bg-white/40 hover:bg-white/60"
                 }`}
               />
             ))}

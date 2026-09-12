@@ -54,13 +54,13 @@ export default function FilterModal({
       />
 
       {/* Modal */}
-      <div className="relative ml-auto w-full max-w-sm bg-white h-full overflow-y-auto animate-slide-in-right shadow-2xl">
+      <div className="relative ml-auto w-full max-w-xs sm:max-w-sm bg-white h-full overflow-y-auto animate-slide-in-right shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">Filters & Sort</h2>
+        <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between min-h-[56px]">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Filters & Sort</h2>
           <button
             onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors min-h-[44px] min-w-[44px]"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -68,7 +68,7 @@ export default function FilterModal({
         </div>
 
         {/* Filter Content */}
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           <FilterSidebar
             filterOptions={filterOptions}
             activeFilters={activeFilters}
@@ -79,10 +79,10 @@ export default function FilterModal({
         </div>
 
         {/* Apply Button */}
-        <div className="sticky bottom-0 z-10 bg-white border-t border-gray-200 px-6 py-4">
+        <div className="sticky bottom-0 z-10 bg-white border-t border-gray-200 px-3 sm:px-6 py-3 sm:py-4">
           <button
             onClick={onClose}
-            className="w-full px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl transition-all active:scale-95 shadow-md"
+            className="w-full px-4 sm:px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl transition-all active:scale-95 shadow-md min-h-[44px]"
           >
             Show {productCount} Product{productCount !== 1 ? "s" : ""}
           </button>

@@ -161,29 +161,29 @@ How can I assist you today?`,
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 animate-pulse"
+        className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 animate-pulse min-h-[56px] min-w-[56px]"
         aria-label="Open WhatsApp Chat"
       >
         {isOpen ? (
-          <X className="w-8 h-8" />
+          <X className="w-6 h-6 sm:w-8 sm:h-8" />
         ) : (
-          <MessageCircle className="w-8 h-8" />
+          <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8" />
         )}
       </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-96 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-slide-up">
+        <div className="fixed bottom-16 sm:bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-96 max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-slide-up max-h-[75vh] sm:max-h-96">
           {/* Header */}
-          <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-lg">Arcure Pharma Support</h3>
-                <p className="text-teal-100 text-sm">Usually replies instantly</p>
+          <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white px-3 sm:px-6 py-3 sm:py-4 flex-shrink-0">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-base sm:text-lg truncate">Arcure Pharma Support</h3>
+                <p className="text-teal-100 text-xs sm:text-sm">Usually replies instantly</p>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="hover:bg-white/20 p-2 rounded-full transition-colors"
+                className="hover:bg-white/20 p-2 rounded-full transition-colors flex-shrink-0 min-h-[44px] min-w-[44px]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -191,7 +191,7 @@ How can I assist you today?`,
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 max-h-96">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gray-50">
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -200,13 +200,13 @@ How can I assist you today?`,
                 }`}
               >
                 <div
-                  className={`max-w-xs px-4 py-3 rounded-lg ${
+                  className={`max-w-xs px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-sm sm:text-base ${
                     msg.role === "user"
                       ? "bg-teal-600 text-white rounded-br-none"
                       : "bg-white text-gray-800 rounded-bl-none border border-gray-200"
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                  <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                   <p
                     className={`text-xs mt-1 ${
                       msg.role === "user"
@@ -224,7 +224,7 @@ How can I assist you today?`,
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-800 px-4 py-3 rounded-lg rounded-bl-none border border-gray-200">
+                <div className="bg-white text-gray-800 px-3 sm:px-4 py-2 sm:py-3 rounded-lg rounded-bl-none border border-gray-200">
                   <div className="flex gap-2">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
                     <div
@@ -243,9 +243,9 @@ How can I assist you today?`,
 
           {/* Phone Input Section */}
           {showPhoneInput && (
-            <div className="px-4 py-3 bg-blue-50 border-t border-blue-200">
+            <div className="px-3 sm:px-4 py-2 sm:py-3 bg-blue-50 border-t border-blue-200 flex-shrink-0">
               <form onSubmit={handlePhoneSubmit} className="space-y-2">
-                <label className="text-sm font-semibold text-gray-700">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">
                   Enter your WhatsApp number:
                 </label>
                 <div className="flex gap-2">
@@ -254,12 +254,12 @@ How can I assist you today?`,
                     placeholder="03001234567"
                     value={userPhone}
                     onChange={(e) => setUserPhone(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="flex-1 px-2 sm:px-3 py-2 border border-gray-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent min-h-[44px]"
                   />
                   <button
                     type="submit"
                     disabled={!userPhone}
-                    className="px-3 py-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 text-white rounded-lg text-sm font-semibold transition-colors"
+                    className="px-3 py-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 text-white rounded-lg text-xs sm:text-sm font-semibold transition-colors min-h-[44px] min-w-[44px]"
                   >
                     OK
                   </button>
@@ -269,20 +269,20 @@ How can I assist you today?`,
           )}
 
           {/* Input Area */}
-          <div className="border-t border-gray-200 p-4 bg-white">
-            <div className="flex gap-2 mb-3">
+          <div className="border-t border-gray-200 p-3 sm:p-4 bg-white flex-shrink-0 space-y-2">
+            <div className="flex gap-2 flex-col sm:flex-row">
               <button
                 onClick={handleShiftToWhatsApp}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold text-sm transition-colors"
+                className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold text-xs sm:text-sm transition-colors min-h-[44px] flex-1"
               >
                 <Phone className="w-4 h-4" />
                 WhatsApp
               </button>
               <button
                 onClick={() => setShowPhoneInput(!showPhoneInput)}
-                className="flex-1 px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-semibold text-sm transition-colors"
+                className="flex-1 px-3 sm:px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-semibold text-xs sm:text-sm transition-colors min-h-[44px]"
               >
-                {showPhoneInput ? "Cancel" : "Update Phone"}
+                {showPhoneInput ? "Cancel" : "Phone"}
               </button>
             </div>
 
@@ -291,16 +291,16 @@ How can I assist you today?`,
                 type="text"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
-                placeholder="Type your message..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                placeholder="Message..."
+                className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg text-xs sm:text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent min-h-[44px]"
                 disabled={loading}
               />
               <button
                 type="submit"
                 disabled={loading || !userInput.trim()}
-                className="px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 text-white rounded-lg transition-colors flex items-center justify-center"
+                className="px-3 py-2.5 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 text-white rounded-lg transition-colors flex items-center justify-center min-h-[44px] min-w-[44px]"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
               </button>
             </form>
           </div>
