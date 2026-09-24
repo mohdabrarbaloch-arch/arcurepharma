@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #1E254A;
+    --color-primary-hover: #141A36;
+    --color-primary-dark: #0E1226;
+    --color-primary-deep: #141A36;
+    --color-primary-light: #F4F7FC;
+    --color-primary-subtle: #EBF0F9;
+    --color-primary-border: #C8D5E8;
+
+    --color-gold: #D48D20;
+    --color-gold-hover: #B87714;
+    --color-gold-light: #FEF7ED;
+    --color-gold-subtle: #FDF1DC;
+    --color-gold-border: #F6D8A6;
+
+    --color-pink: #F43F96;
+    --color-pink-hover: #E11D7A;
+    --color-pink-light: #FDF2F8;
+
+    --color-green: #2D6A4F;
+    --color-green-light: #ECFDF5;
+    --color-green-border: #A7F3D0;
+
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    overflow-x: hidden;
+    color: #1f2937;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .font-serif-heading {
+    font-family: var(--font-serif);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Modern Clean Glass & Card Effects */
+.clean-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clean-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244, 63, 150, 0.25);
+  box-shadow: 0 20px 25px -5px rgba(244, 63, 150, 0.07), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.gradient-mesh-hero {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(253, 242, 248, 0.9) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(240, 249, 255, 0.8) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(254, 243, 199, 0.4) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(245, 243, 255, 0.6) 0px, transparent 50%);
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, #F43F96 0%, #FB7185 50%, #F43F96 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.03);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Glassmorphism */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(18, 23, 46, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Section Divider */
+.section-divider {
+  width: 68px;
+  height: 3px;
+  background: linear-gradient(90deg, #1E254A, #D48D20, #2D6A4F);
+  border-radius: 999px;
+  margin: 0.75rem auto 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd7e8;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1e254a;
+}
+
+/* Luxury Top Notification Bar Motion Effects */
+@keyframes gold-aura-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 203, 142, 0.6), 0 0 14px 2px rgba(224, 168, 88, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(245, 203, 142, 0), 0 0 24px 6px rgba(224, 168, 88, 0.65);
+  }
+}
+
+@keyframes gold-ripple-aura {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.18);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1.36);
+    opacity: 0;
+  }
+}
+
+@keyframes glossy-reflection-sweep {
+  0% {
+    transform: translateX(-180%) skewX(-25deg);
+  }
+  32%, 100% {
+    transform: translateX(280%) skewX(-25deg);
+  }
+}
+
+.animate-gold-aura {
+  animation: gold-aura-pulse 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-gold-ripple-1 {
+  animation: gold-ripple-aura 3s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+}
+
+.animate-gold-ripple-2 {
+  animation: gold-ripple-aura 3s cubic-bezier(0.2, 0.8, 0.4, 1) 1.5s infinite;
+}
+
+.animate-glossy-sweep {
+  animation: glossy-reflection-sweep 3.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
